@@ -53,6 +53,11 @@ def init_geom_data():
   db_conn.commit()
 
 
-#create_database()
-#seed()
+create_database()
+print("create_database")
+seed_database()
+print("seed_database")
 install_plugins()
+print("install_plugins")
+init_geom_data()
+print("init_geom_data")
