@@ -24,7 +24,6 @@ id TEXT PRIMARY KEY, -- Unique Identifier of Restaurant
             lat FLOAT, -- Latitude
             lng FLOAT) -- Longitude
 		""")
-	db_cursor.close()
 	db_conn.commit()
 
 def seed_database():
@@ -32,7 +31,6 @@ def seed_database():
 	db_cursor.execute("""
      COPY tb_restaurants FROM '{0}/restaurantes.csv' CSV HEADER DELIMITER ',';
 		""".format(cdw))
-	db_cursor.close()
 	db_conn.commit()
 
 def install_plugins():
@@ -40,7 +38,6 @@ def install_plugins():
       db_cursor.execute("""
      CREATE EXTENSION postgis;
             """)
-      db_cursor.close()
       db_conn.commit()
 
 def init_geom_data():
@@ -49,9 +46,7 @@ def init_geom_data():
   UPDATE tb_restaurants SET geom = ST_SetSRID(ST_MakePoint(lng , lat ), 4326);  
   CREATE INDEX idx_restaruants_geoms ON tb_restaurants USING gist(geom); 
   """)
-  db_cursor.close()
   db_conn.commit()
-
 
 create_database()
 print("create_database")
@@ -61,3 +56,4 @@ install_plugins()
 print("install_plugins")
 init_geom_data()
 print("init_geom_data")
+db_cursor.close()
