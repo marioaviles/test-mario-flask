@@ -1,0 +1,340 @@
+swagger: "2.0"
+info:
+  description:  This is a test application 
+  version: "1.0.0"
+  title: Restaurants REST API
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /restaurants:
+    get:
+      operationId: restaurants.read_all
+      tags:
+        - restaurants
+      summary: Read the entire set of restaurants 
+      description: Read the entire set of restaurants 
+      responses:
+        200:
+          description: Successfully read restaurants set operation
+          schema:
+            type: array
+            items:
+              properties:
+                rating:
+                  type: integer
+                  description: 0 to 5
+                name:
+                  type: string
+                  description: Name of restaurant
+                site:
+                  type: string
+                  description: web page url
+                email:
+                  type: string
+                  description: business email
+                phone:
+                  type: string
+                  description: business phone number
+                street:
+                  type: string
+                  description: business location 
+                city:
+                  type: string
+                  description: business city
+                state:
+                  type: string
+                  description: business state
+                lat:
+                  type: number
+                  description: business location latitude
+                lgn: 
+                  type: number
+                  description: business location longitude
+
+    post:
+      operationId: restaurants.create
+      tags:
+        - restaurants
+      summary: Create a restaurant
+      description: Create a new restaurant
+      parameters:
+        - name: restaurant
+          in: body
+          description: Restaurant to create
+          required: True
+          schema:
+            type: object
+            properties:
+              rating:
+                type: integer
+                description: 0 to 5
+              name:
+                type: string
+                description: Name of restaurant
+              site:
+                type: string
+                description: web page url
+              email:
+                type: string
+                description: business email
+              phone:
+                type: string
+                description: business phone number
+              street:
+                type: string
+                description: business location 
+              city:
+                type: string
+                description: business city
+              state:
+                type: string
+                description: business state
+              lat:
+                type: number
+                description: business location latitude
+              lgn: 
+                type: number
+                description: business location longitude
+      responses:
+        201:
+          description: Successfully created a restaurant
+          schema:
+            properties:
+              id:
+                type: string
+                description: Id of the restaurant
+              rating:
+                type: integer
+                description: 0 to 5
+              name:
+                type: string
+                description: Name of restaurant
+              site:
+                type: string
+                description: web page url
+              email:
+                type: string
+                description: business email
+              phone:
+                type: string
+                description: business phone number
+              street:
+                type: string
+                description: business location 
+              city:
+                type: string
+                description: business city
+              state:
+                type: string
+                description: business state
+              lat:
+                type: number
+                description: business location latitude
+              lgn: 
+                type: number
+                description: business location longitude
+
+  /restaurants/{restaurant_id}:
+    get:
+      operationId: restaurants.read_one
+      tags:
+        - restaurants
+      summary: Read one 
+      description: Read one 
+      parameters:
+        - name: restaurant_id
+          in: path
+          description: Id of the restaurant to get
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read a restaurant 
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Id of the restaurant
+              rating:
+                type: integer
+                description: 0 to 5
+              name:
+                type: string
+                description: Name of restaurant
+              site:
+                type: string
+                description: web page url
+              email:
+                type: string
+                description: business email
+              phone:
+                type: string
+                description: business phone number
+              street:
+                type: string
+                description: business location 
+              city:
+                type: string
+                description: business city
+              state:
+                type: string
+                description: business state
+              lat:
+                type: number
+                description: business location latitude
+              lgn: 
+                type: number
+                description: business location longitude
+
+    put:
+      operationId: restaurants.update
+      tags:
+        - restaurants
+      summary: Update a restaurant
+      description: Update a restaurant
+      parameters:
+        - name: restaurant_id
+          in: path
+          description: Id the restaurant to update
+          type: string
+          required: True
+        - name: restaurant
+          in: body
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Id of the restaurant
+              rating:
+                type: integer
+                description: 0 to 5
+              name:
+                type: string
+                description: Name of restaurant
+              site:
+                type: string
+                description: web page url
+              email:
+                type: string
+                description: business email
+              phone:
+                type: string
+                description: business phone number
+              street:
+                type: string
+                description: business location 
+              city:
+                type: string
+                description: business city
+              state:
+                type: string
+                description: business state
+              lat:
+                type: number
+                description: business location latitude
+              lgn: 
+                type: number
+                description: business location longitude
+      responses:
+        200:
+          description: Successfully updated 
+          schema:
+            properties:
+              id:
+                type: string
+                description: Id of the restaurant
+              rating:
+                type: integer
+                description: 0 to 5
+              name:
+                type: string
+                description: Name of restaurant
+              site:
+                type: string
+                description: web page url
+              email:
+                type: string
+                description: business email
+              phone:
+                type: string
+                description: business phone number
+              street:
+                type: string
+                description: business location 
+              city:
+                type: string
+                description: business city
+              state:
+                type: string
+                description: business state
+              lat:
+                type: number
+                description: business location latitude
+              lgn: 
+                type: number
+                description: business location longitude
+
+    delete:
+      operationId: restaurants.delete
+      tags:
+        - restaurants
+      summary: Delete a restaurant from the  list
+      description: Delete a restaurant
+      parameters:
+        - name: restaurant_id
+          in: path
+          type: string
+          description: Id of the restaurant to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a restaurant
+          
+  /restaurants/statistics:
+    get:
+      operationId: restaurants.find_restaurants
+      tags:
+        - restaurants
+      summary: Search for restaurants  
+      description: Search for the closest restaurants near your area 
+      parameters:
+        - in: query
+          name: latitude
+          type: number
+          description: latitude of starting point
+        - in: query
+          name: longitude
+          type: number
+          description: longitude of starting point
+        - in: query
+          name: radius
+          type: number
+          description: farthest acceptable distance for a restaurant 
+      responses:
+        200:
+          description: Successfully read a restaurant 
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+                description: Count of restaurants that fall inside the circle with center [x,y] y radius z
+              avg:
+                type: number
+                description: Average rating of restaurant inside the circle
+              std:
+                type: string
+                description: Standard deviation of rating of restaurants inside the circle 
+             
+          
+          
+          
+          
